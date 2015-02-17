@@ -1,10 +1,12 @@
 #include <stdio.h>
+#include <math.h>
 
 #include "tga.h"
 
 void swap(int *a, int *b);
 int abs(int a);
 
+int sign(int a);
 /*
 * Using Digital Differential Analyzer algorihm
 * to draw interval connecting (x0, y0) with (x1, y1)
@@ -24,7 +26,7 @@ int main(int argc, char **argv)
     }
     tgaImage * image = tgaNewImage(800, 800, RGB);
 
-    line(image, 100, 50, 20, 600, tgaRGB(255, 255, 255));
+    line(image, 10, 10, 600, 11, tgaRGB(255, 255, 255));
     if (-1 == tgaSaveToFile(image, argv[1])) {
         perror("tgaSateToFile");
         rv = -1;
@@ -52,13 +54,20 @@ void line (tgaImage *image,
     }
 
     int x;
-    double y;
-    double k = ((double)(y1 - y0))/(x1 - x0);
-    for (x = x0, y = y0; x <= x1; ++x, y += k) {
+    int y;
+    double de = fabs(((double)(y1 - y0))/(x1 - x0));
+    double e = 0;
+    for (x = x0, y = y0; x <= x1; ++x) {
         if (steep) {
             tgaSetPixel(image, y, x, color);
         } else {
             tgaSetPixel(image, x, y, color);
+        }
+
+        e += de;
+        if (e > 0.5) {
+            y += sign(y1 - y0);
+            e -= 1.0;
         }
     }
 }
@@ -72,3 +81,14 @@ void swap(int *a, int *b) {
 int abs(int a) {
     return (a >= 0) ? a : -a;
 }
+
+int sign(int a) {
+    if (a > 0) {
+        return 1;
+    } else if (a == 0) {
+        return 0;
+    } else {
+        return -1;
+    }
+}
+
