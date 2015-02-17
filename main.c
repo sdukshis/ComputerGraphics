@@ -16,6 +16,9 @@ void line (tgaImage *image,
            int x1, int y1,
            tgaColor color);
 
+/*
+* Draw model using meshgrid
+*/
 void meshgrid(tgaImage *image, Model *model);
 
 int main(int argc, char **argv)
