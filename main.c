@@ -202,8 +202,8 @@ void triangle(tgaImage *image,
         for (x = xleft; x <= xright; ++x) {
             tgaSetPixel(image, x, y, color);
         }
-        xleft += (y <= y1) ? dx01 : _dx02;
-        xright += (y <= y1) ? dx02 : dx12;
+        xleft += (y < y1) ? dx01 : _dx02;
+        xright += (y < y1) ? dx02 : dx12;
     }
 }
 
