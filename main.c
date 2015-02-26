@@ -8,7 +8,7 @@ int abs(int a);
 
 int sign(int a);
 /*
-* Using Digital Differential Analyzer algorihm
+* Using Bresenham algorihm
 * to draw interval connecting (x0, y0) with (x1, y1)
 * on image using color
 */
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     }
     tgaImage * image = tgaNewImage(800, 800, RGB);
 
-    line(image, 10, 10, 600, 11, tgaRGB(255, 255, 255));
+    line(image, 10, 10, 600, 250, tgaRGB(255, 255, 255));
     if (-1 == tgaSaveToFile(image, argv[1])) {
         perror("tgaSateToFile");
         rv = -1;
@@ -41,9 +41,9 @@ void line (tgaImage *image,
            int x1, int y1,
            tgaColor color)
 {
-    int steep = 0;
+    int transpose = 0;
     if (abs(y1 - y0) > abs(x1 - x0)) {
-        steep = 1;
+        transpose = 1;
         swap(&x0, &y0);
         swap(&x1, &y1);
     }
@@ -55,19 +55,20 @@ void line (tgaImage *image,
 
     int x;
     int y;
-    double de = fabs(((double)(y1 - y0))/(x1 - x0));
-    double e = 0;
+    int dx = abs(x1 - x0);
+    int de = 2 * abs(y1 - y0);
+    int e = 0;
     for (x = x0, y = y0; x <= x1; ++x) {
-        if (steep) {
+        if (transpose) {
             tgaSetPixel(image, y, x, color);
         } else {
             tgaSetPixel(image, x, y, color);
         }
 
         e += de;
-        if (e > 0.5) {
+        if (e > dx) {
             y += sign(y1 - y0);
-            e -= 1.0;
+            e -= 2 * dx;
         }
     }
 }

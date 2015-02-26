@@ -1,5 +1,5 @@
-CC = gcc
-CFLAGS = -g -Wall -pedantic
+CC = clang
+CFLAGS = -g -Wall -pedantic -pg
 LFLAGS = -lm
 
 .PHONY: all clean
