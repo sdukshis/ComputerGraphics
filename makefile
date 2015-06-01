@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -pedantic
+CFLAGS = -g -Wall
 LFLAGS = -lm
 
 .PHONY: all clean
@@ -7,7 +7,7 @@ LFLAGS = -lm
 all: render
 
 render: main.o tga.o model.o
-	$(CC) $(LFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(LFLAGS)
 
 main.o: main.c tga.h model.h
 	$(CC) -c $(CFLAGS) -o $@ $<
