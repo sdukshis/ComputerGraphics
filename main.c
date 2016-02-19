@@ -24,7 +24,7 @@ int main(int argc, char **argv)
     }
     tgaImage * image = tgaNewImage(800, 800, RGB);
 
-    line(image, 100, 50, 20, 600, tgaRGB(255, 255, 255));
+    line(image, 100, 50, 20, 30, tgaRGB(255, 255, 255));
     if (-1 == tgaSaveToFile(image, argv[1])) {
         perror("tgaSateToFile");
         rv = -1;

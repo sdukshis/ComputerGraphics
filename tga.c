@@ -64,7 +64,7 @@ tgaImage * tgaNewImage(unsigned int height, unsigned int width, int format)
         return NULL;
     }
 
-    bzero(image->data, data_size); /* TODO: explicit tgaColor? */
+    memset(image->data, 0, data_size); /* TODO: explicit tgaColor? */
 
     return image;
 }
@@ -86,7 +86,18 @@ int tgaSetPixel(tgaImage *image, unsigned int x, unsigned int y, tgaColor c)
         return -1;
 
     unsigned char *pixel_pos = (unsigned char *)(image->data + (x + y * image->width) * image->bpp);
-    memcpy(pixel_pos, &c, image->bpp);
+    char *b = (char*)&c;
+
+    switch (image->bpp) {
+        case RGBA:
+            *pixel_pos++ = *b++;
+        case RGB:
+            *pixel_pos++ = *b++;
+            *pixel_pos++ = *b++;
+        case GRAYSCALE:
+            *pixel_pos++ = *b++;
+    }
+    // memcpy(pixel_pos, &c, image->bpp);
     return 0;
 }
 
