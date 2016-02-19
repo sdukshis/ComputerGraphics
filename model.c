@@ -6,6 +6,31 @@
 #include <stdint.h>
 #include <string.h>
 
+#if defined(_MSC_VER)
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+static ssize_t getline(char **lineptr, size_t *n, FILE *stream)
+{
+    if (!*n) *lineptr = NULL;
+    if (!*lineptr) *n = 0;
+
+    size_t i = 0;
+    char ch;
+    while ((ch = getc(stream)) != EOF) {
+        if (ch == '\n') break;
+
+        if (i == *n) {
+            *n += 1024;
+            *lineptr = realloc(*lineptr, *n);
+            assert(*lineptr);
+        }
+        (*lineptr)[i++] = (char)ch;
+    }
+    (*lineptr)[i] = '\0';
+    return i;
+}
+#endif
+
 Model * loadFromObj(const char *filename)
 {
     assert(filename);
