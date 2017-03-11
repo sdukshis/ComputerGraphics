@@ -1,8 +1,9 @@
 build:
 
 build_script:
+  - set PATH=%PATH%;C:\MinGW\bin
   - mkdir build && cd build
-  - cmake -G "Visual Studio %TOOLCHAIN_VERSION%" ..
+  - cmake -G "%TOOLCHAIN_VERSION%" ..
   - cmake --build . --config %BUILD_TYPE% 
 
 test_script:
@@ -11,19 +12,21 @@ test_script:
 
 environment:
   matrix:
-    - TOOLCHAIN_VERSION: 14 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 14 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 12 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 12 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 14 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 14 Win64
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: 12 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 12 Win64
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: 14
+    - TOOLCHAIN_VERSION: Visual Studio 14
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 12
+    - TOOLCHAIN_VERSION: Visual Studio 12
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 14
+    - TOOLCHAIN_VERSION: Visual Studio 14
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: 12
+    - TOOLCHAIN_VERSION: Visual Studio 12
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: Unix Makefile
       BUILD_TYPE: Debug

@@ -9,7 +9,6 @@ if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
 else() #  MSVC
     add_definitions(/W4)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
-    add_definitions(/Ze) # C4204
 endif()
 
 
