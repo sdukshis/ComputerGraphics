@@ -29,17 +29,17 @@ tgaColor tgaRGB(unsigned char r, unsigned char g, unsigned char b)
 
 unsigned char Red(tgaColor c)
 {
-    return c >> 16;
+    return (unsigned char)(c >> 16);
 }
 
 unsigned char Blue(tgaColor c)
 {
-    return c >> 0;
+    return (unsigned char)(c >> 0);
 }
 
 unsigned char Green(tgaColor c)
 {
-    return c >> 8;
+    return (unsigned char)(c >> 8);
 }
 
 static int loadRLE(tgaImage *, FILE *);
@@ -55,7 +55,7 @@ tgaImage * tgaNewImage(unsigned int height, unsigned int width, int format)
 
     image->height = height;
     image->width = width;
-    image->bpp = format;
+    image->bpp = (unsigned char)format;
 
     unsigned int data_size = image->height * image->width * image->bpp;
     image->data = (unsigned char *)malloc(data_size);
@@ -136,8 +136,8 @@ int tgaSaveToFile(tgaImage *image, const char *filename)
     header.color_map_bpp = 0;
     header.image_pos_x = 0;
     header.image_pos_y = 0;
-    header.image_width = image->width;
-    header.image_height = image->height;
+    header.image_width = (unsigned short)image->width;
+    header.image_height = (unsigned short)image->height;
     header.image_bpp = image->bpp << 3;
     header.image_descriptor = 0x20; /* top-left origin */
 

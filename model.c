@@ -18,7 +18,7 @@ static ssize_t unigetline(char **lineptr, size_t *n, FILE *stream)
     if (!*lineptr) *n = 0;
 
     size_t i = 0;
-    char ch;
+    int ch;
     while ((ch = getc(stream)) != EOF) {
         if (ch == '\n') break;
 
@@ -228,7 +228,9 @@ tgaColor getDiffuseColor(Model *model, Vec3 *uv)
     }
     unsigned int h = model->diffuse_map->height;
     unsigned int w = model->diffuse_map->width;
-    return tgaGetPixel(model->diffuse_map, w * (*uv)[0], h * (*uv)[1]);
+    return tgaGetPixel(model->diffuse_map,
+                       (unsigned int)(w * (*uv)[0]),
+                       (unsigned int)(h * (*uv)[1]));
 }
 
 int getNormal(Model *model, Vec3 *n, Vec3 *uv)
@@ -242,7 +244,9 @@ int getNormal(Model *model, Vec3 *n, Vec3 *uv)
     }
     unsigned int h = model->normal_map->height;
     unsigned int w = model->normal_map->width;
-    tgaColor c = tgaGetPixel(model->normal_map, w * (*uv)[0], h * (*uv)[1]);
+    tgaColor c = tgaGetPixel(model->normal_map,
+                             (unsigned int)(w * (*uv)[0]),
+                             (unsigned int)(h * (*uv)[1]));
     (*n)[2] = (double)Red(c)/255.0 * 2.0 - 1.0;
     (*n)[1] = (double)Green(c)/255.0 * 2.0 - 1.0;
     (*n)[0] = (double)Blue(c)/255.0 * 2.0 - 1.0;

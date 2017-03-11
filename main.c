@@ -65,9 +65,9 @@ void line (tgaImage *image,
     double k = ((double)(y1 - y0))/(x1 - x0);
     for (x = x0, y = y0; x <= x1; ++x, y += k) {
         if (steep) {
-            tgaSetPixel(image, y, x, color);
+            tgaSetPixel(image, (unsigned int)y, (unsigned int)x, color);
         } else {
-            tgaSetPixel(image, x, y, color);
+            tgaSetPixel(image, (unsigned int)x, (unsigned int)y, color);
         }
     }
 }
