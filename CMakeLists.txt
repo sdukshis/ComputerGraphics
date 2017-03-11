@@ -14,7 +14,7 @@ endif()
 
 
 add_executable(render main.c model.c tga.c)
-add_executable(julia julia.c model.c tga.c)
+add_executable(julia julia.c model.c tga.c complex.c)
 
 if (UNIX)
     set(LIBS

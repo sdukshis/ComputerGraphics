@@ -1,18 +1,18 @@
-#include <complex.h>
+#include "complex.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "tga.h"
 
-int calculate_z(int maxiter, double complex z, double complex c) {
-  while (maxiter-- && (cabs(z) < 2)) {
-    z = z * z + c;
+int calculate_z(int maxiter, Complex z, Complex c) {
+  while (maxiter-- && (cabs_(z) < 2)) {
+    z = cadd(cmul(z, z), c);
   }
   return maxiter;
 }
 
 void draw_julia_set(tgaImage *image, double x1, double x2, double y1, double y2,
-                    double complex c, int maxiter) {
+                    Complex c, int maxiter) {
   double x_step = (double)(x2 - x1) / image->width;
   double y_step = (double)(y2 - y1) / image->height;
 
@@ -20,9 +20,10 @@ void draw_julia_set(tgaImage *image, double x1, double x2, double y1, double y2,
   double x, y;
   for (i = 0, x = x1; i < image->width; ++i, x += x_step) {
     for (j = 0, y = y1; j < image->height; ++j, y += y_step) {
+      Complex z0 = {x, y};
       double intensity =
           (1.0 -
-           (double)calculate_z(maxiter, x + y * _Complex_I, c) / maxiter);
+           (double)calculate_z(maxiter, z0, c) / maxiter);
       tgaColor color = tgaRGB(255 * intensity, 255 * intensity, 0);
       tgaSetPixel(image, i, j, color);
     }
@@ -36,11 +37,7 @@ int main(int argc, char *argv[]) {
   }
 
   double x1 = -1.8, x2 = 1.8, y1 = -1.8, y2 = 1.8;
-  // double complex c = -0.62772 - 0.42195 * _Complex_I;
-  // double complex c = -0.7269 + 0.1889 * _Complex_I;
-  // double complex c = 0.8 * _Complex_I;
-  // double complex c = -0.70176 - 0.3852 * _Complex_I;
-  double complex c = -0.4 + 0.6 * _Complex_I;
+  Complex c = {-0.4, 0.6};
 
   int width = 800;
   int height = 800;
