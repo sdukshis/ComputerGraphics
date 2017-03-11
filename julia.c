@@ -4,7 +4,7 @@
 
 #include "tga.h"
 
-int calculate_z(int maxiter, complex double z, complex double c) {
+int calculate_z(int maxiter, double complex z, double complex c) {
   while (maxiter-- && (cabs(z) < 2)) {
     z = z * z + c;
   }
@@ -12,7 +12,7 @@ int calculate_z(int maxiter, complex double z, complex double c) {
 }
 
 void draw_julia_set(tgaImage *image, double x1, double x2, double y1, double y2,
-                    complex double c, int maxiter) {
+                    double complex c, int maxiter) {
   double x_step = (double)(x2 - x1) / image->width;
   double y_step = (double)(y2 - y1) / image->height;
 
@@ -36,11 +36,11 @@ int main(int argc, char *argv[]) {
   }
 
   double x1 = -1.8, x2 = 1.8, y1 = -1.8, y2 = 1.8;
-  // complex double c = -0.62772 - 0.42195 * _Complex_I;
-  // complex double c = -0.7269 + 0.1889 * _Complex_I;
-  // complex double c = 0.8 * _Complex_I;
-  // complex double c = -0.70176 - 0.3852 * _Complex_I;
-  complex double c = -0.4 + 0.6 * _Complex_I;
+  // double complex c = -0.62772 - 0.42195 * _Complex_I;
+  // double complex c = -0.7269 + 0.1889 * _Complex_I;
+  // double complex c = 0.8 * _Complex_I;
+  // double complex c = -0.70176 - 0.3852 * _Complex_I;
+  double complex c = -0.4 + 0.6 * _Complex_I;
 
   int width = 800;
   int height = 800;
