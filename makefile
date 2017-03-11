@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -g -Wall -std=gnu11 -g -O2 -pg
-LFLAGS = -lm -g -pg
+CFLAGS = -ggdb -g3 -Wall -std=gnu11 -g -O2 -pg -fno-omit-frame-pointer
+LFLAGS = -lm -g -pg -lprofiler -Wl,-no_pie
 
 .PHONY: all clean
 
