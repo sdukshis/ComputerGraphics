@@ -16,7 +16,7 @@ void draw_julia_set(tgaImage *image, double x1, double x2, double y1, double y2,
   double x_step = (double)(x2 - x1) / image->width;
   double y_step = (double)(y2 - y1) / image->height;
 
-  int i, j;
+  unsigned i, j;
   double x, y;
   for (i = 0, x = x1; i < image->width; ++i, x += x_step) {
     for (j = 0, y = y1; j < image->height; ++j, y += y_step) {
@@ -24,7 +24,9 @@ void draw_julia_set(tgaImage *image, double x1, double x2, double y1, double y2,
       double intensity =
           (1.0 -
            (double)calculate_z(maxiter, z0, c) / maxiter);
-      tgaColor color = tgaRGB(255 * intensity, 255 * intensity, 0);
+      tgaColor color = tgaRGB((unsigned char)(255 * intensity),
+                              (unsigned char)(255 * intensity),
+                              0);
       tgaSetPixel(image, i, j, color);
     }
   }

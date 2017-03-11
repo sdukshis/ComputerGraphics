@@ -6,10 +6,9 @@ if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
     CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_definitions(-Wall)
     add_definitions(-Werror)
-elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
+else() #  MSVC
     add_definitions(/W4)
-else()
-    message("Unknown compiler.")
+    add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
 

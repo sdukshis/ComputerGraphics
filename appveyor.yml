@@ -2,7 +2,7 @@ build:
 
 build_script:
   - mkdir build && cd build
-  - cmake -G "Visual Studio %TOOLCHAIN_VERSION% Win64" ..
+  - cmake -G "Visual Studio %TOOLCHAIN_VERSION%" ..
   - cmake --build . --config %BUILD_TYPE% 
 
 test_script:
@@ -11,11 +11,19 @@ test_script:
 
 environment:
   matrix:
-    - TOOLCHAIN_VERSION: 14
+    - TOOLCHAIN_VERSION: 14 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 12
+    - TOOLCHAIN_VERSION: 12 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: 14
+    - TOOLCHAIN_VERSION: 14 Win64
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: 12
+    - TOOLCHAIN_VERSION: 12 Win64
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: 14 Win32
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 12 Win32
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 14 Win32
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: 12 Win32
       BUILD_TYPE: Debug

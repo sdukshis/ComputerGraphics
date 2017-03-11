@@ -238,7 +238,7 @@ void tgaFlipVertically(tgaImage *image)
     unsigned char *line = (unsigned char *)malloc(bytes_per_line);
     assert(line);
     unsigned int half = image->height / 2;
-    int j;
+    unsigned int j;
     for (j = 0; j < half; ++j) {
         // swap lines
         unsigned int l1 = j * bytes_per_line;
@@ -254,7 +254,7 @@ void tgaFlipHorizontally(tgaImage *image)
 {
     assert(image);
     unsigned int half = image->width / 2;
-    int i, j;
+    unsigned int i, j;
     for (i = 0; i < half; ++i) {
         for (j = 0; j < image->height; ++j) {
             tgaColor c1 = tgaGetPixel(image, i, j);
