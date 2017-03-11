@@ -12,6 +12,8 @@ test_script:
 
 environment:
   matrix:
+    - TOOLCHAIN_VERSION: MinGW Makefiles
+      BUILD_TYPE: Debug
     - TOOLCHAIN_VERSION: Visual Studio 14 Win64
       BUILD_TYPE: Release
     - TOOLCHAIN_VERSION: Visual Studio 12 Win64
@@ -28,5 +30,4 @@ environment:
       BUILD_TYPE: Debug
     - TOOLCHAIN_VERSION: Visual Studio 12
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: Unix Makefile
-      BUILD_TYPE: Debug
+
