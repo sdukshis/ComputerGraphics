@@ -10,7 +10,9 @@
 #if defined(_MSC_VER)
 #include <BaseTsd.h>
 typedef SSIZE_T ssize_t;
-static ssize_t getline(char **lineptr, size_t *n, FILE *stream)
+#endif
+
+static ssize_t unigetline(char **lineptr, size_t *n, FILE *stream)
 {
     if (!*n) *lineptr = NULL;
     if (!*lineptr) *n = 0;
@@ -30,7 +32,6 @@ static ssize_t getline(char **lineptr, size_t *n, FILE *stream)
     (*lineptr)[i] = '\0';
     return i;
 }
-#endif
 
 Model * loadFromObj(const char *filename)
 {
@@ -64,7 +65,7 @@ Model * loadFromObj(const char *filename)
     char *line = NULL;
     size_t linecap = 0;
     ssize_t linelen;
-    while ((linelen = getline(&line, &linecap, fd)) > 0) {
+    while ((linelen = unigetline(&line, &linecap, fd)) > 0) {
         if (!strncmp(line, "vn", 2)) {
             if (model->nnorm >= normcap) { // realloc
                 normcap *= 2;
