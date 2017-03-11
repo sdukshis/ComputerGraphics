@@ -3,23 +3,25 @@ language: cpp
 
 script:
   - mkdir build && cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_CXX_COMPILER=$COMPILER
+  - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_C_COMPILER=$COMPILER
   - cmake --build . -- VERBOSE=1
   - ./julia julia.tga
   - ./render render.tga
 
 
 env:
-  - BUILD_TYPE=Release COMPILER=g++-4.9
-  - BUILD_TYPE=Release COMPILER=g++-5
-  - BUILD_TYPE=Release COMPILER=g++-6
-  - BUILD_TYPE=Release COMPILER=clang++-3.9
-  - BUILD_TYPE=Release COMPILER=clang++-4.0
-  - BUILD_TYPE=Debug COMPILER=g++-4.9
-  - BUILD_TYPE=Debug COMPILER=g++-5
-  - BUILD_TYPE=Debug COMPILER=g++-6
-  - BUILD_TYPE=Debug COMPILER=clang++-3.9
-  - BUILD_TYPE=Debug COMPILER=clang++-4.0
+  - BUILD_TYPE=Release COMPILER=gcc-4.8
+  - BUILD_TYPE=Release COMPILER=gcc-4.9
+  - BUILD_TYPE=Release COMPILER=gcc-5
+  - BUILD_TYPE=Release COMPILER=gcc-6
+  - BUILD_TYPE=Release COMPILER=clang-3.9
+  - BUILD_TYPE=Release COMPILER=clang-4.0
+  - BUILD_TYPE=Debug COMPILER=gcc-4.8
+  - BUILD_TYPE=Debug COMPILER=gcc-4.9
+  - BUILD_TYPE=Debug COMPILER=gcc-5
+  - BUILD_TYPE=Debug COMPILER=gcc-6
+  - BUILD_TYPE=Debug COMPILER=clang-3.9
+  - BUILD_TYPE=Debug COMPILER=clang-4.0
 
 
 addons:
@@ -29,6 +31,10 @@ addons:
       - llvm-toolchain-trusty-3.9
       - llvm-toolchain-trusty-4.0
     packages:
+      # - g++-4.5
+      # - g++-4.6
+      # - g++-4.7
+      - g++-4.8
       - g++-4.9
       - g++-5
       - g++-6
