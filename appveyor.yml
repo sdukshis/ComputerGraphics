@@ -1,7 +1,7 @@
 build:
 
 build_script:
-  - set PATH=%PATH%;C:\MinGW\bin
+  # - set PATH=%PATH%;C:\MinGW\bin
   - mkdir build && cd build
   - cmake -G "%TOOLCHAIN_VERSION%" ..
   - cmake --build . --config %BUILD_TYPE% 
