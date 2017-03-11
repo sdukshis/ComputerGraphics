@@ -36,11 +36,11 @@ int main(int argc, char *argv[]) {
   }
 
   double x1 = -1.8, x2 = 1.8, y1 = -1.8, y2 = 1.8;
-  // complex c = -0.62772 - 0.42195 * _Complex_I;
+  // complex double c = -0.62772 - 0.42195 * _Complex_I;
   // complex double c = -0.7269 + 0.1889 * _Complex_I;
-  // complex c = 0.8 * _Complex_I;
-  // complex c = -0.70176 - 0.3852 * _Complex_I;
-  complex c = -0.4 + 0.6 * _Complex_I;
+  // complex double c = 0.8 * _Complex_I;
+  // complex double c = -0.70176 - 0.3852 * _Complex_I;
+  complex double c = -0.4 + 0.6 * _Complex_I;
 
   int width = 800;
   int height = 800;

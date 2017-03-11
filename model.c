@@ -72,7 +72,10 @@ Model * loadFromObj(const char *filename)
                 assert(model->normals);
             }
             Vec3 *vn = &model->normals[model->nnorm];
-            assert(3 == sscanf(line + 2, "%lg %lg %lg\n", &(*vn)[0], &(*vn)[1], &(*vn)[2]));
+            if(3 != sscanf(line + 2, "%lg %lg %lg\n", &(*vn)[0], &(*vn)[1], &(*vn)[2])) {
+                fprintf(stderr, "error while parsing: %s", line + 2);
+                exit(EXIT_FAILURE);
+            }
             model->nnorm += 1;
         } else if (!strncmp(line, "vt", 2)) {
             if (model->ntext >= textcap) { // realloc
@@ -84,7 +87,10 @@ Model * loadFromObj(const char *filename)
             (*vt)[0] = 0.0;
             (*vt)[1] = 0.0;
             (*vt)[2] = 0.0;
-            assert(1 < sscanf(line + 2, "%lg %lg\n", &(*vt)[0], &(*vt)[1]));
+            if (2 != sscanf(line + 2, "%lg %lg\n", &(*vt)[0], &(*vt)[1])) {
+                fprintf(stderr, "error while parsing: %s", line + 2);
+                exit(EXIT_FAILURE);
+            }
             model->ntext += 1;
         } else if (!strncmp(line, "v", 1)) {
             if (model->nvert >= vertcap) { // realloc
@@ -93,7 +99,10 @@ Model * loadFromObj(const char *filename)
                 assert(model->vertices);
             }
             Vec3 *v = &model->vertices[model->nvert];
-            assert(3 == sscanf(line + 1, "%lg %lg %lg\n", &(*v)[0], &(*v)[1], &(*v)[2]));
+            if (3 != sscanf(line + 1, "%lg %lg %lg\n", &(*v)[0], &(*v)[1], &(*v)[2])) {
+                fprintf(stderr, "error while parsing: %s", line + 2);
+                exit(EXIT_FAILURE);                
+            }
             model->nvert += 1;
         } else if (!strncmp(line, "f", 1)) {
             if (model->nface >= facecap) { // realloc

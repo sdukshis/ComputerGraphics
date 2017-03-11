@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(render C)
 
-if (CMAKE_COMPILER_IS_GNUCC)
+if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
+    CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_definitions(-Wall)
     add_definitions(-Werror)
-elseif(MSVC)
+elseif(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     add_definitions(/W4)
 else()
     message("Unknown compiler.")
