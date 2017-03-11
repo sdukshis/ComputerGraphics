@@ -1,0 +1,29 @@
+build:
+
+build_script:
+  - mkdir build && cd build
+  - cmake -G "Visual Studio %TOOLCHAIN_VERSION% Win64" ..
+  - cmake --build . --config %BUILD_TYPE% 
+
+test_script:
+  - cmd: "%BUILD_TYPE%\\julia julia.tga"
+  - cmd: "%BUILD_TYPE%\\render render.tga"
+
+environment:
+  matrix:
+    - TOOLCHAIN_VERSION: 14
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 12
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 11
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 10
+      BUILD_TYPE: Release
+    - TOOLCHAIN_VERSION: 14
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: 12
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: 11
+      BUILD_TYPE: Debug
+    - TOOLCHAIN_VERSION: 10
+      BUILD_TYPE: Debug
