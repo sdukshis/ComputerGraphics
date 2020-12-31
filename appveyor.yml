@@ -1,4 +1,4 @@
-build:
+build: false
 
 build_script:
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
