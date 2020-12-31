@@ -9,8 +9,7 @@ build_script:
   - cmake --build . --config %BUILD_TYPE% 
 
 test_script:
-  - cmd: "%BUILD_TYPE%\\julia julia.tga || julia julia.tga"
-  - cmd: "%BUILD_TYPE%\\render render.tga || render render.tga"
+  - cmd: ctest -V
 
 environment:
   matrix:
