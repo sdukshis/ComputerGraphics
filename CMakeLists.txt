@@ -48,7 +48,6 @@ if (BUILD_TESTING)
       
       string(REPLACE " " ";" args_list ${args})
 
-      message("args: ${args_list}")
       get_filename_component(test_filename ${src} NAME_WE)
       set(test_name "test_${test_filename}")
       add_executable(${test_name} ${src} model.c tga.c)

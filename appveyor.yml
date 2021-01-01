@@ -1,5 +1,3 @@
-build: Script
-
 build_script:
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
