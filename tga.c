@@ -178,7 +178,7 @@ int tgaSaveToFile(tgaImage *image, const char *filename)
 tgaImage * tgaLoadFromFile(const char *filename)
 {
     assert(filename);
-    FILE *fd = fopen(filename, "r");
+    FILE *fd = fopen(filename, "rb");
     if (!fd) {
         return NULL;
     }
