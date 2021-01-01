@@ -208,10 +208,10 @@ tgaImage * tgaLoadFromFile(const char *filename)
         printf("read raw bytes\n");
         
         size_t size = image->height * image->width * image->bpp;
-        printf("read %zu bytes\n", size);
+        printf("read %lu bytes\n", size);
         size_t rb = fread(image->data, 1, size, fd);
         if (rb != size) {
-            fprintf(stderr, "Error read from file. fread returns: %zu\n", rb);
+            fprintf(stderr, "Error read from file. fread returns: %lu\n", rb);
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
