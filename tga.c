@@ -182,20 +182,19 @@ tgaImage * tgaLoadFromFile(const char *filename)
     if (!fd) {
         return NULL;
     }
-    printf("fopen passed\n");
+
     struct tgaHeader header;
     if (1 != fread(&header, sizeof(header), 1, fd)) {
         fclose(fd);
         return NULL;
     }
-    printf("fread header passed\n");
 
     if (header.color_map_type == 1) {
         fprintf(stderr, "TGA files with color map unsupported\n");
         fclose(fd);
         return NULL;
     }
-    printf("width: %d, height: %d, bpp: %d\n", header.image_width, header.image_height, header.image_bpp);
+
     tgaImage *image = tgaNewImage(header.image_height,
                                   header.image_width,
                                   header.image_bpp >> 3);
@@ -203,28 +202,23 @@ tgaImage * tgaLoadFromFile(const char *filename)
         fclose(fd);
         return NULL;
     }
-    printf("tgaNewImage passed\n");
+
     if (header.image_type == 3 || header.image_type == 2) {
-        printf("read raw bytes\n");
         
         size_t size = image->height * image->width * image->bpp;
-        printf("read %u bytes\n", size);
         size_t rb = fread(image->data, 1, size, fd);
         if (rb != size) {
-            fprintf(stderr, "Error read from file. fread returns: %u\n", rb);
+            fprintf(stderr, "Error read from file");
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
         }
-        printf("read raw bytes passed\n");
     } else if (header.image_type == 11 || header.image_type == 10) {
-        printf("read RLE bytes\n");
         if (-1 == loadRLE(image, fd)) {
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
         }
-        printf("read RLE bytes passed\n");
     } else {
         fprintf(stderr, "Unknown image type: %u\n", header.image_type);
         tgaFreeImage(image);
