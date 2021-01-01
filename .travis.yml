@@ -63,28 +63,9 @@ matrix:
       env:
         - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
 
-    # - os: osx
-    #   osx_image: xcode6.4
-    #   env: BUILD_TYPE=Debug
-    # - os: osx
-    #   osx_image: xcode7.3
-    #   env: BUILD_TYPE=Debug
-    # - os: osx
-    #   osx_image: xcode8
-    #   env: BUILD_TYPE=Debug
-    # - os: osx
-    #   osx_image: xcode8.2
-    #   env: BUILD_TYPE=Debug
-    # - os: osx
-    #   osx_image: xcode6.4
-    #   env: BUILD_TYPE=Release
-    # - os: osx
-    #   osx_image: xcode7.3
-    #   env: BUILD_TYPE=Release
-    # - os: osx
-    #   osx_image: xcode8
-    #   env: BUILD_TYPE=Release
-    # - os: osx
-    #   osx_image: xcode8.2
-    #   env: BUILD_TYPE=Release
-
+    - os: osx
+      osx_image: xcode12.2
+    - os: osx
+      osx_image: xcode11.6
+    - os: osx
+      osx_image: xcode10.3
