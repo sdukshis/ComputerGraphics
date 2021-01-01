@@ -207,8 +207,11 @@ tgaImage * tgaLoadFromFile(const char *filename)
     if (header.image_type == 3 || header.image_type == 2) {
         printf("read raw bytes\n");
         
-        unsigned int size = image->height * image->width * image->bpp;
-        if (1 != fread(image->data, size, 1, fd)) {
+        size_t size = image->height * image->width * image->bpp;
+        printf("read %zu bytes\n", size);
+        size_t rb = fread(image->data, 1, size, fd);
+        if (rb != size) {
+            fprintf(stderr, "Error read from file. fread returns: %zu\n", rb);
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
