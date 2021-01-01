@@ -15,20 +15,20 @@ environment:
       BUILD_TYPE: Debug
     - TOOLCHAIN_VERSION: MinGW Makefiles
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: Visual Studio 15 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 14 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: Visual Studio 16 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 12 Win64
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: Visual Studio 15 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 14 Win64
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: Visual Studio 16 Win64
+    - TOOLCHAIN_VERSION: Visual Studio 12 Win64
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: Visual Studio 15
+    - TOOLCHAIN_VERSION: Visual Studio 14
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: Visual Studio 16
+    - TOOLCHAIN_VERSION: Visual Studio 12
       BUILD_TYPE: Release
-    - TOOLCHAIN_VERSION: Visual Studio 15
+    - TOOLCHAIN_VERSION: Visual Studio 14
       BUILD_TYPE: Debug
-    - TOOLCHAIN_VERSION: Visual Studio 16
+    - TOOLCHAIN_VERSION: Visual Studio 12
       BUILD_TYPE: Debug
 
