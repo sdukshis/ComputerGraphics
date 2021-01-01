@@ -101,17 +101,6 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-          packages:
-            - g++-10
-      env:
-        - MATRIX_EVAL="CC=gcc-10 && CXX=g++-10"
-
-    # works on Precise and Trusty
-    - os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.6
           packages:
             - clang-3.6
@@ -180,6 +169,7 @@ matrix:
       addons:
         apt:
           sources:
+            - ubuntu-toolchain-r-test  # for libstdc++6 (>= 4.9)
             - llvm-toolchain-trusty-6.0
           packages:
             - clang-6.0
@@ -191,6 +181,7 @@ matrix:
       addons:
         apt:
           sources:
+            - ubuntu-toolchain-r-test  # for libstdc++6 (>= 4.9)
             - llvm-toolchain-trusty-7
           packages:
             - clang-7
@@ -202,6 +193,7 @@ matrix:
       addons:
         apt:
           sources:
+            - ubuntu-toolchain-r-test  # for libstdc++6 (>= 4.9)
             - llvm-toolchain-trusty-8
           packages:
             - clang-8
