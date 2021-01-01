@@ -182,18 +182,20 @@ tgaImage * tgaLoadFromFile(const char *filename)
     if (!fd) {
         return NULL;
     }
-
+    printf("fopen passed\n");
     struct tgaHeader header;
     if (1 != fread(&header, sizeof(header), 1, fd)) {
         fclose(fd);
         return NULL;
     }
+    printf("fread header passed\n");
 
     if (header.color_map_type == 1) {
         fprintf(stderr, "TGA files with color map unsupported\n");
         fclose(fd);
         return NULL;
     }
+    printf("width: %d, height: %d, bpp: %d\n", header.image_width, header.image_height, header.image_bpp)
     tgaImage *image = tgaNewImage(header.image_height,
                                   header.image_width,
                                   header.image_bpp >> 3);
@@ -201,6 +203,7 @@ tgaImage * tgaLoadFromFile(const char *filename)
         fclose(fd);
         return NULL;
     }
+    printf("tgaNewImage passed\n");
     if (header.image_type == 3 || header.image_type == 2) {
         unsigned int size = image->height * image->width * image->bpp;
         if (!fread(image->data, size, 1, fd)) {
