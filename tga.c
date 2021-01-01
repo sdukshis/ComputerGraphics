@@ -195,7 +195,7 @@ tgaImage * tgaLoadFromFile(const char *filename)
         fclose(fd);
         return NULL;
     }
-    printf("width: %d, height: %d, bpp: %d\n", header.image_width, header.image_height, header.image_bpp)
+    printf("width: %d, height: %d, bpp: %d\n", header.image_width, header.image_height, header.image_bpp);
     tgaImage *image = tgaNewImage(header.image_height,
                                   header.image_width,
                                   header.image_bpp >> 3);
