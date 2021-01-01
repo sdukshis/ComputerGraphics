@@ -178,7 +178,7 @@ int tgaSaveToFile(tgaImage *image, const char *filename)
 tgaImage * tgaLoadFromFile(const char *filename)
 {
     assert(filename);
-    FILE *fd = fopen(filename, "r");
+    FILE *fd = fopen(filename, "rb");
     if (!fd) {
         return NULL;
     }
@@ -194,6 +194,7 @@ tgaImage * tgaLoadFromFile(const char *filename)
         fclose(fd);
         return NULL;
     }
+
     tgaImage *image = tgaNewImage(header.image_height,
                                   header.image_width,
                                   header.image_bpp >> 3);
@@ -201,9 +202,13 @@ tgaImage * tgaLoadFromFile(const char *filename)
         fclose(fd);
         return NULL;
     }
+
     if (header.image_type == 3 || header.image_type == 2) {
-        unsigned int size = image->height * image->width * image->bpp;
-        if (!fread(image->data, size, 1, fd)) {
+        
+        size_t size = image->height * image->width * image->bpp;
+        size_t rb = fread(image->data, 1, size, fd);
+        if (rb != size) {
+            fprintf(stderr, "Error read from file");
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
@@ -214,10 +219,11 @@ tgaImage * tgaLoadFromFile(const char *filename)
             fclose(fd);
             return NULL;
         }
-
     } else {
         fprintf(stderr, "Unknown image type: %u\n", header.image_type);
         tgaFreeImage(image);
+        fclose(fd);
+        return NULL;
     }
 
     if (!(header.image_descriptor & 0x20)) {

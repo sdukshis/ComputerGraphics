@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 
     tgaImage* image = tgaLoadFromFile(tgafile);
     if (!image) {
-        die("loadFromObj failed: %s\n", strerror(errno));
+        die("tgaLoadFromFile failed: %s\n", strerror(errno));
     }
 
     if (image->width != width) {

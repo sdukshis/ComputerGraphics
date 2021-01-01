@@ -1,11 +1,9 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.0)
 
 project(render C)
 
 include(CTest)
-# option(BUILD_TESTS "Build unittests" ON)
 
-message("CMAKE_C_COMPILER_ID: ${CMAKE_C_COMPILER_ID}")
 if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
     CMAKE_C_COMPILER_ID STREQUAL "GNU" OR
     CMAKE_C_COMPILER_ID STREQUAL "AppleClang")
@@ -48,6 +46,8 @@ if (BUILD_TESTING)
       list(GET test_srcs ${i} src)
       list(GET test_args ${i} args)
       
+      string(REPLACE " " ";" args_list ${args})
+
       get_filename_component(test_filename ${src} NAME_WE)
       set(test_name "test_${test_filename}")
       add_executable(${test_name} ${src} model.c tga.c)
@@ -56,7 +56,7 @@ if (BUILD_TESTING)
       target_compile_features(${test_name} PUBLIC c_std_11)
       add_test(
           NAME ${test_name}
-          COMMAND $<TARGET_FILE:${test_name}> ${args}
+          COMMAND $<TARGET_FILE:${test_name}> ${args_list}
           WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   
       )
