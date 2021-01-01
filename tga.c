@@ -205,22 +205,28 @@ tgaImage * tgaLoadFromFile(const char *filename)
     }
     printf("tgaNewImage passed\n");
     if (header.image_type == 3 || header.image_type == 2) {
+        printf("read raw bytes\n");
+        
         unsigned int size = image->height * image->width * image->bpp;
-        if (!fread(image->data, size, 1, fd)) {
+        if (1 != fread(image->data, size, 1, fd)) {
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
         }
+        printf("read raw bytes passed\n");
     } else if (header.image_type == 11 || header.image_type == 10) {
+        printf("read RLE bytes\n");
         if (-1 == loadRLE(image, fd)) {
             tgaFreeImage(image);
             fclose(fd);
             return NULL;
         }
-
+        printf("read RLE bytes passed\n");
     } else {
         fprintf(stderr, "Unknown image type: %u\n", header.image_type);
         tgaFreeImage(image);
+        fclose(fd);
+        return NULL;
     }
 
     if (!(header.image_descriptor & 0x20)) {
