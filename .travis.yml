@@ -43,7 +43,7 @@ matrix:
             - llvm-toolchain-xenial-8
           packages:
             - clang-8
-            - llvm-lcov
+            - llvm
       env:
         - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
       after_success:
