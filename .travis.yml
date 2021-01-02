@@ -12,39 +12,45 @@ before_install:
 
 matrix:
   include:
-    # works on Precise and Trusty
-    # - os: linux
-    #   addons:
-    #     apt:
-    #       sources:
-    #         - ubuntu-toolchain-r-test
-    #       packages:
-    #         - g++-8
-    #   env:
-    #     - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
-
-    # # works on Xenial
-    # - os: linux
-    #   addons:
-    #     apt:
-    #       sources:
-    #         - ubuntu-toolchain-r-test
-    #       packages:
-    #         - g++-9
-    #   env:
-    #     - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
-
-    # works on Trusty
+    works on Precise and Trusty
     - os: linux
       addons:
         apt:
-          # sources:
-          #   - ubuntu-toolchain-r-test  # for libstdc++6 (>= 4.9)
-          #   - llvm-toolchain-xenial-8
+          sources:
+            - ubuntu-toolchain-r-test
           packages:
-            # - clang-8
+            - g++-8
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+
+    # works on Xenial
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-9
+      env:
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+
+    # works on Xenial
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-xenial-8
+          packages:
+            - clang-8
+      env:
+        - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
+
+    - os: linux
+      addons:
+        apt:
+          packages:
             - lcov
-            # - llvm
       env:
         - MATRIX_EVAL="CC=gcc && CXX=g++"
       after_success:
@@ -60,9 +66,9 @@ matrix:
       # '-f' specifies file(s) to use and disables manual coverage gathering and file search which has already been done above
       - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
-    # - os: osx
-    #   osx_image: xcode12.2
-    # - os: osx
-    #   osx_image: xcode11.6
-    # - os: osx
-    #   osx_image: xcode10.3
+    - os: osx
+      osx_image: xcode12.2
+    - os: osx
+      osx_image: xcode11.6
+    - os: osx
+      osx_image: xcode10.3
