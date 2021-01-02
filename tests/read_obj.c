@@ -33,5 +33,7 @@ int main(int argc, char* argv[]) {
     if (model->nvert != nvert) {
         die("face number doen't match\n");
     }
+
+    freeModel(model);
     return 0;
 }
