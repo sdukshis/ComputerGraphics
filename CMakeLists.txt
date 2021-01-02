@@ -4,11 +4,20 @@ project(render C)
 
 include(CTest)
 
+# Code Coverage Configuration
+add_library(coverage_config INTERFACE)
+
 if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
     CMAKE_C_COMPILER_ID STREQUAL "GNU" OR
     CMAKE_C_COMPILER_ID STREQUAL "AppleClang")
     add_definitions(-Wall)
     add_definitions(-Werror)
+    target_compile_options(coverage_config INTERFACE
+        -O0        # no optimization
+        -g         # generate debug info
+        --coverage # sets all required flags
+    )
+    target_link_libraries(coverage_config INTERFACE --coverage)
 else() #  MSVC
     add_definitions(/W4)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
@@ -52,7 +61,7 @@ if (BUILD_TESTING)
       set(test_name "test_${test_filename}")
       add_executable(${test_name} ${src} model.c tga.c)
       target_include_directories(${test_name} PUBLIC ${PROJECT_SOURCE_DIR})
-      target_link_libraries(${test_name} ${LIBS})
+      target_link_libraries(${test_name} PUBLIC coverage_config ${LIBS})
       target_compile_features(${test_name} PUBLIC c_std_11)
       add_test(
           NAME ${test_name}
