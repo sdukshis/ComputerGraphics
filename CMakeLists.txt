@@ -17,7 +17,7 @@ if (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR
         -g         # generate debug info
         --coverage # sets all required flags
     )
-    target_link_options(coverage_config INTERFACE --coverage)
+    target_link_libraries(coverage_config INTERFACE --coverage)
 else() #  MSVC
     add_definitions(/W4)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)

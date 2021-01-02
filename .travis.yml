@@ -7,49 +7,8 @@ script:
   - cmake --build .
   - ctest --output-on-failure
 
-
-# env:
-#   - BUILD_TYPE=Release COMPILER=gcc-4.8
-#   - BUILD_TYPE=Release COMPILER=gcc-4.9
-#   - BUILD_TYPE=Release COMPILER=gcc-5
-#   - BUILD_TYPE=Release COMPILER=gcc-6
-#   - BUILD_TYPE=Release COMPILER=clang-3.9
-#   - BUILD_TYPE=Release COMPILER=clang-4.0
-#   - BUILD_TYPE=Debug COMPILER=gcc-4.8
-#   - BUILD_TYPE=Debug COMPILER=gcc-4.9
-#   - BUILD_TYPE=Debug COMPILER=gcc-5
-#   - BUILD_TYPE=Debug COMPILER=gcc-6
-#   - BUILD_TYPE=Debug COMPILER=clang-3.9
-#   - BUILD_TYPE=Debug COMPILER=clang-4.0
-
 before_install:
     - eval "${MATRIX_EVAL}"
-
-jobs:
-  include:
-    - stage: codecov
-      os: linux
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test  # for libstdc++6 (>= 4.9)
-            - llvm-toolchain-xenial-8
-          packages:
-            - clang-8
-      env:
-        - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
-      after_success:
-      # Create lcov report
-      # capture coverage info
-      - lcov --directory . --capture --output-file coverage.info
-      # filter out system and extra files.
-      # To also not include test code in coverage add them with full path to the patterns: '*/tests/*'
-      - lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
-      # output coverage data for debugging (optional)
-      - lcov --list coverage.info
-      # Uploading to CodeCov
-      # '-f' specifies file(s) to use and disables manual coverage gathering and file search which has already been done above
-      - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
 matrix:
   include:
@@ -86,6 +45,18 @@ matrix:
             - clang-8
       env:
         - MATRIX_EVAL="CC=clang-8 && CXX=clang++-8"
+      after_success:
+      # Create lcov report
+      # capture coverage info
+      - lcov --directory . --capture --output-file coverage.info
+      # filter out system and extra files.
+      # To also not include test code in coverage add them with full path to the patterns: '*/tests/*'
+      - lcov --remove coverage.info '/usr/*' "${HOME}"'/.cache/*' --output-file coverage.info
+      # output coverage data for debugging (optional)
+      - lcov --list coverage.info
+      # Uploading to CodeCov
+      # '-f' specifies file(s) to use and disables manual coverage gathering and file search which has already been done above
+      - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
 
     - os: osx
       osx_image: xcode12.2
