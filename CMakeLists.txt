@@ -26,9 +26,11 @@ endif()
 
 add_executable(render main.c model.c tga.c)
 add_executable(julia julia.c model.c tga.c complex.c)
+add_executable(mesh mesh.c model.c tga.c)
 
 target_compile_features(render PUBLIC c_std_11)
 target_compile_features(julia PUBLIC c_std_11)
+target_compile_features(mesh PUBLIC c_std_11)
 
 if (UNIX)
     set(LIBS
@@ -38,6 +40,7 @@ endif()
 
 target_link_libraries(render ${LIBS})
 target_link_libraries(julia ${LIBS})
+target_link_libraries(mesh ${LIBS})
 
 if (BUILD_TESTING)
     list(APPEND test_srcs tests/read_obj.c)

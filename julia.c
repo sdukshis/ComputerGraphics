@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   }
 
   double x1 = -1.8, x2 = 1.8, y1 = -1.8, y2 = 1.8;
-  Complex c = {-0.4, 0.6};
+  Complex c = {-0.39, 0.59};
 
   int width = 800;
   int height = 800;

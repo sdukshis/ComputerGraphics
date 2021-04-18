@@ -4,12 +4,9 @@ LFLAGS = -lm -g
 
 .PHONY: all clean
 
-all: render julia test
+all: render julia
 
 render: main.o tga.o model.o
-	$(CC) -o $@ $^ $(LFLAGS)
-
-test: test.o tga.o model.o
 	$(CC) -o $@ $^ $(LFLAGS)
 
 julia: julia.o tga.o model.o complex.o
