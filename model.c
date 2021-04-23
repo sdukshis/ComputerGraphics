@@ -12,6 +12,8 @@
 typedef SSIZE_T ssize_t;
 #endif
 
+#define FILEPATH_SIZE 256
+
 static ssize_t unigetline(char **lineptr, size_t *n, FILE *stream)
 {
     if (!*n) *lineptr = NULL;
@@ -132,6 +134,13 @@ Model * loadFromObj(const char *filename)
         } else if (!strncmp(line, "#", 1) ||
                    !strncmp(line, "\n", 1)) {
             // skip comments and empty lines
+        } else if (!strncmp(line, "mtllib", 6)) {
+            char mtlfile[FILEPATH_SIZE];
+            strcpy(mtlfile, line + 7);
+        } else if (!strncmp(line, "usemtl", 6)) {
+            // skip usemtl cmd
+        } else if (!strncmp(line, "s", 1)) {
+            // skip s cmd
         } else {
             fprintf(stderr, "Warning! Unsupported obj format: %s", line);
         }
