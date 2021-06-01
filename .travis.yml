@@ -1,6 +1,10 @@
 dist: xenial
 language: cpp
 
+branches:
+  except:
+    - github-actions
+
 script:
   - mkdir build && cd build
   - cmake ..
